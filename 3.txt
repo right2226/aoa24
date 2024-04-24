@@ -1,0 +1,64 @@
+// MERGE SORT
+
+ #include <stdio.h>
+ void merge(int *Arr, int start, int mid, int end) 
+{
+ int n1 = mid - start + 1;
+ int n2 = end - mid;
+ int Left[n1], Right[n2];
+ for (int i = 0; i < n1; i++)
+ Left[i] = Arr[start + i];
+ for (int j = 0; j < n2; j++)
+ Right[j] = Arr[mid + 1 + j];
+ int i = 0, j = 0, k = start;
+ while (i < n1 && j < n2) 
+{
+ if (Left[i] <= Right[j]) 
+{
+ Arr[k] = Left[i];
+ i++;
+ }
+ else 
+{
+ Arr[k] = Right[j];
+ j++;
+ }
+ k++;
+ }
+ while (i < n1) 
+{
+ Arr[k] = Left[i];
+ i++;
+ k++;
+ }
+ while (j < n2) 
+{
+ Arr[k] = Right[j];
+ j++;
+ k++;
+ }
+}
+ void mergeSort(int *Arr, int start, int end) 
+{
+ if (start < end) {
+ int mid = (start + end) / 2;
+ mergeSort(Arr, start, mid);
+ mergeSort(Arr, mid + 1, end);
+ merge(Arr, start, mid, end);
+ }
+ }
+ int main() 
+{
+ int n;
+ printf("Enter the number of elements: ");
+ scanf("%d", &n);
+ int Arr[n];
+ printf("Enter %d elements:\n", n);
+ for (int i = 0; i < n; i++)
+ scanf("%d", &Arr[i]);
+ mergeSort(Arr, 0, n - 1);
+ printf("Sorted array is:\n");
+ for (int i = 0; i < n; i++)
+ printf("%d ", Arr[i]);
+ return 0;
+}
